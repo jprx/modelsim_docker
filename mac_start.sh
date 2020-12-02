@@ -1,3 +1,4 @@
+#!/bin/bash
 # @jprx
 # Start modelsim_docker for mac
 # Requires XQuartz
@@ -15,17 +16,23 @@
 # 5. When done using Modelsim, run ./mac_stop.sh and then uncheck Allow remote connections from XQuartz
 # 6. Quit XQuartz
 
-# The directory to mount from mac:
-MAC_DIR=""
+# Load config options:
+. config.sh
 
-# Where to find your mac directory from Modelsim:
-MAC_DIR_MOUNTPOINT="/mac"
+if [[ $HOST_DIR == "" ]]; then
+    echo ""
+    echo "Host directory is empty; please choose a host directory in config.sh"
+    exit
+fi
 
 # This isn't very secure, so after using modelsim make sure to disable this with ./mac_stop.sh:
 /usr/X11/bin/xhost + ${hostname}
 
 docker run -it \
     -e DISPLAY=${HOSTNAME}:0 \
-    --volume="$MAC_DIR:/$MAC_DIR_MOUNTPOINT:rw" \
+    --volume="$HOST_DIR:/$CONTAINER_DIR_MOUNTPOINT:rw" \
     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
     modelsim
+
+# Disallow any incoming connections
+./mac_stop.sh

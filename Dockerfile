@@ -20,6 +20,7 @@ libxt6:i386 libxtst6:i386
 COPY modelsim_setup.run /modelsim/install.run
 
 # Install Modelsim unattended
+RUN chmod +x /modelsim/install.run
 RUN modelsim/install.run --mode unattended --installdir /modelsim/ --unattendedmodeui none --accept_eula 1
 
 # Patch linux_rh60 bug in vsim:

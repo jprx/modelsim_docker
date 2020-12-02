@@ -5,10 +5,18 @@
 # This is using "Option 2" running as the local user uid and gid
 # The user's home directory is also mounted inside the container so Modelsim can access files
 # Running as the local user also lets us access the X11 daemon
+. config.sh
+
+if [[ $HOST_DIR == "" ]]; then
+    echo ""
+    echo "Host directory is empty; please choose a host directory in config.sh"
+    exit
+fi
+
 docker run -it \
 	--user=$(id -u):$(id -g) \
 	--env="DISPLAY" \
-	--volume="/home/$USER:/home/$USER" \
+	--volume="$HOST_DIR:/$CONTAINER_DIR_MOUNTPOINT:rw" \
 	--volume="/etc/group:/etc/group:ro" \
 	--volume="/etc/passwd:/etc/passwd:ro" \
 	--volume="/etc/shadow:/etc/shadow:ro" \
