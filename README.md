@@ -21,6 +21,10 @@ The downloaded file should be renamed to `modelsim_setup.run` and placed in the 
 # Configuration
 You can setup which directory is mapped to the container in `config.sh`. This works on both macOS and Linux.
 
+Inside the container, you can access your files in HOST_DIR at CONTAINER_DIR_MOUNTPOINT. By default, this is the /mac directory. Within Modelsim, you can access your project files with `cd /mac` as below:
+
+![Version](Installation/dir.png)
+
 # Running It
 ## Automatically
 Once you've downloaded `modelsim_setup.run` you can use `./build.sh` to build the container.
