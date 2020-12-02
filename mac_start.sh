@@ -19,12 +19,6 @@
 # Load config options:
 . config.sh
 
-if [[ $HOST_DIR == "" ]]; then
-    echo ""
-    echo "Host directory is empty; please choose a host directory in config.sh"
-    exit
-fi
-
 # This isn't very secure, so after using modelsim make sure to disable this with ./mac_stop.sh:
 /usr/X11/bin/xhost + ${hostname}
 

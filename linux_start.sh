@@ -7,12 +7,6 @@
 # Running as the local user also lets us access the X11 daemon
 . config.sh
 
-if [[ $HOST_DIR == "" ]]; then
-    echo ""
-    echo "Host directory is empty; please choose a host directory in config.sh"
-    exit
-fi
-
 docker run -it \
 	--user=$(id -u):$(id -g) \
 	--env="DISPLAY" \
